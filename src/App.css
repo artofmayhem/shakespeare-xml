@@ -1,38 +1,111 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+body {
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: black;
   color: white;
+  margin: 0;
+  top: 0;
+  left: 0;
+  font-family: "Requiem Fine A", "Requiem Fine B";
+  font-style: normal;
+  font-weight: 300;
 }
 
-.App-link {
-  color: #61dafb;
+nav {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  background-color: #444;
+  width: 100vw;
+  height: auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+nav h1 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+nav h3 {
+  font-size: small;
+}
+
+/* className styling */
+.App {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.linear-progress-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.linear-progress {
+  width: 40vw;
+  height: 100px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.text-field {
+  width: 15rem;
+  height: 1.5rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  background-color: #222;
+  color: white;
+  font-size: 1rem;
+}
+
+.input-fields-wrapper {
+  width: 100vw;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: url(/src/assets/shakespeare.jpg);
+  background-size: contain;
+  background-position: center;
+}
+
+.input-fields {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #888;
+  border-radius: 50px;
+  padding: 1rem;
+  background-color: #444;
+  width: 30vw;
+  min-width: 330px;
+  margin: 3rem auto;
+  box-shadow: 0 0 2rem black;
+}
+
+.output-wrapper {
+  width: 100vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  background-color: #111;
 }
