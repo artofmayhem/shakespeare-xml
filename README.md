@@ -23,19 +23,22 @@ Search function that returns a list of results based on the search term and amou
 
 ## DATA FLOW CHART PROVIDED: 
 
-    - https://whimsical.com/8LePrcVAybuZn7gdMtQJjw
+https://whimsical.com/8LePrcVAybuZn7gdMtQJjw
 
 Search is handled using O(n) time and O(n) space complexity.
 
 ## APP considerations: 
 
-    XML data will need to be parsed to JSON - to handle parsing I used XMLparser and then set the data to state using useState.
+    XML data will need to be parsed to JSON - to handle parsing I used XMLparser and then set the data to 
+    state using useState.
 
-    lines are displayed as a table of objects. These lines are obtained from the new JSON data using getElementsByTagName("value").
+    lines are displayed as a table of objects. These lines are obtained from the new JSON data using
+    getElementsByTagName("value").
 
-    Character names have multiple values that are searchable. To make the searchable names predictable I used the approach of creating buttons with set values 
-    and would only show values that are available to be searched. This removes the necessity for the user to know the character name or naming convention found within the data 
-    to find the correct character. 
+    Character names have multiple values that are searchable. To make the searchable names predictable I 
+    used the approach of creating buttons with set values and would only show values that are available 
+    to be searched. This removes the necessity for the user to know the character name or naming 
+    convention found within the data to find the correct character. 
 
 
 
