@@ -17,63 +17,32 @@ function App() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // searchJSON(value);
-    console.log(`name: ${name}, value: ${value}`);
     setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: value }));
   };
 
-  //query will be the character name and the amount of lines to return
-  // this will be coming from the form and querying the data in state
-
-  // the character data looks like this:
-  // <persona gender="male">
-  // <persname short="LAF.">Lafew</persname>
-  // <persaliases>
-  // 	<persname short="Ol.Laf."/>
-  // 	<persname short="Lafew."/>
-  // 	<persname short="L.Laf."/>
-  // 	<persname short="Old Laf."/>
-  // 	<persname short="Laf."/>
-  // 	<persname short="La."/>
-  // 	<persname short="La"/>
-  // 	<persname short="Old La."/>
-  // 	<persname short="Ol.Lord"/>
-  // </persaliases>
-  // </persona>
-
-  // the likes data looks like this:
-  //   <speech>
-  // <speaker>Laf.</speaker>
-  // <line globalnumber="7" number="7">You &#383;hall find of the King a husband Madame,</line>
-  // <line globalnumber="8" number="8">you &#383;ir a father. He that &#383;o generally is at all times good,</line>
-  // <line globalnumber="9" number="9">mu&#383;t of nece&#383;&#383;itie hold his vertue to you, who&#383;e worthi&#160;&#8212;</line>
-  // <line globalnumber="10" number="10">ne&#383;&#383;e would &#383;tirre it vp where it wanted rather then lack</line>
-  // <line globalnumber="11" number="11">it where there is &#383;uch abundance.</line>
-  // </speech>
-
-  // will need to search persaliases for the name and then search the speech and return the required number of lines
-
-  //function may look like this:
-  function searchJSON(formValues) {
-    axios
-      .get(Data, {
-        "Content-Type": "application/xml; charset=utf-8",
-      })
-      .then((res) => {
-        const data = res.data;
-        const foundCharacter = data.filter(
-          (character) => character.name === foundCharacter
-        );
-        const foundLines = foundCharacter.slice(0, formValues.length);
-        console.log(
-          ">>>>>found character: ",
-          foundCharacter,
-          "found lines: ",
-          foundLines
-        );
-      })
-      .catch((err) => console.log({ err }));
-  }
+  const searchJSON = (formValues, data) => {
+    const foundLines = [];
+    const searchData = data.children
+    const { character, length } = formValues;
+    console.log("1. Form Values from handleSubmit call: ", formValues, "2. SEARCH_DATA", searchData[3].children[0].children[1].children[0].attributes.short.toUpperCase(), "3. CHARACTER", character, "4. LENGTH", length); //200 happy path data :)
+    for (let idx = 5; idx <= 15; idx++) {
+      console.log('Looped search data name ', searchData[idx].children[0].value.toUpperCase());
+      if (searchData[3].children[0].children[1].children[0].attributes.short.toUpperCase() === character) {
+        foundLines.push(searchData[idx].children[0].value);
+        console.log("5. Found character: ", searchData[idx].children[0].value);
+        console.log('found data: ', searchData[3].children[0].children[1].children[0].attributes.short.toUpperCase());
+        return searchData[idx].children[0].value;
+        
+      }  
+    }
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+    const valueToUpperCase = value.toUpperCase();
+    setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: valueToUpperCase }));
+    searchJSON(formValues, data);
+  };
 
   useEffect(() => {
     axios
@@ -83,7 +52,6 @@ function App() {
       .then((res) => {
         const jsonFromXML = new XMLParser().parseFromString(res.data);
         setData(jsonFromXML);
-        // console.log("PARSED res.data: ", jsonFromXML);
       })
       .catch((err) => {
         console.log("ERROR", { err });
@@ -91,11 +59,11 @@ function App() {
   }, []);
 
   // Data checker
-  if (data === undefined) {
-    console.log(">>>>>>>>>>>>>Loading...");
-  } else {
-    console.log(">>>>>>>>>>>>>DATA From state: ", data.children);
-  }
+  // if (data === undefined) {
+  //   console.log(">>>>>>>>>>>>>Loading...");
+  // } else {
+  //   console.log(">>>>>>>>>>>>>PARSED DATA From state: ", data);
+  // }
 
   return (
     <div className="App">
@@ -105,19 +73,11 @@ function App() {
       </nav>
       <main className={"input-fields-wrapper"}>
         <div className={"input-fields"}>
-          <label htmlFor="character">Character</label>
-          <input
-            type="text"
-            name="character"
-            value={formValues.character}
-            className={"text-field"}
-            onChange={handleChange}
-          />
-          <label htmlFor="length">Length</label>
+          <label htmlFor="length">Number of Lines</label>
           <input
             type="number"
             name="length"
-            value={Number(formValues.length)}
+            value={formValues.length}
             className={"text-field"}
             onChange={handleChange}
           />
@@ -130,10 +90,29 @@ function App() {
             <LinearProgress className={"linear-progress"} />
           </div>
         ) : (
-          <div>
-            <h3>Parsed data is 200 for use</h3>
+          <div className={"character-values"}>
+            <div>
+              <h2>Choose the Character</h2>
+            </div>
+            <div className={"character-values-wrapper"}>
+              {data.children[3].children.map((character, idx) => {
+                return (
+                  <button
+                    key={idx}
+                    name="character"
+                    value={character.children[0].attributes.short}
+                    onClick={handleSubmit}
+                  >
+                    {character.children[0].value}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         )}
+      </div>{" "}
+      <div className={"output-container"}>
+        <h2>Output Container</h2>
       </div>
     </div>
   );
