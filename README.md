@@ -11,10 +11,10 @@ yarn install
 To run: 
 yarn start
 
+site deploy address: https://newfoundry-challenge.netlify.app
+
 ## Features
 Search function that returns a list of results based on the search term and amount of lines require.
-
-
 
 ### The project is built using : 
     - react
