@@ -1,6 +1,3 @@
-This project sets up with yarn install.
-To run the project use: yarn start
-
 # NewFoundry - Challenge app
 []: # Language: markdown
 []: # Path: README.md
