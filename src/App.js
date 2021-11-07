@@ -22,9 +22,9 @@ function App() {
   if (data === undefined) {
     log(">>>>>>>>>>>>>Loading...");
   } else {
-    log(">>>>>>>>>>>>>PARSED DATA From state: ", data);
+    log(">>>>>>>>>>>>>1. PARSED DATA From state: ", data);
   }
-
+  log("2. Search data: ", searchData, "3. Character: ", formValues.character);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: value }));
@@ -34,9 +34,8 @@ function App() {
     const searchData = [];
     const { character, length } = formValues;
     const foundLines = data.getElementsByTagName("line");
-    console.log("4. FOUND LINES", foundLines);
     for (let idx = 1; idx <= length; idx++) {
-      log("Found Line: ", foundLines[idx].value, "character: ", character);
+      log("5. Found Line: ", foundLines[idx].value, "6. character: ", character);
       searchData.push(foundLines[idx].value);
     }
     return searchData;
@@ -52,7 +51,7 @@ function App() {
     setSearchData(searchJSON(formValues, data));
   };
 
-  log("search data: ", searchData);
+
 
   useEffect(() => {
     axios
@@ -115,13 +114,25 @@ function App() {
         )}
       </div>{" "}
       <div className={"output-container"}>
-        {searchData === undefined ? (
+        <table>
+          <tbody>
+            <th>{formValues.character === "" ? (
+              // <h3>Awaiting Query</h3> 
+              null
+            ) : (
+              <h3>Character: {formValues.character}</h3>
+            )}</th>
+            {searchData === undefined ? (
           <p>Awaiting Query</p>
         ) : (
           searchData.map((line, idx) => {
-            return <p key={idx}>Line {idx + 1}: {line}</p>;
+            return <tr key={idx}><td>Line {idx + 1}: {line}</td></tr>;
           })
         )}
+          </tbody>
+            
+        </table>
+      
       </div>
     </div>
   );

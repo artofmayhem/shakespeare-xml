@@ -1,16 +1,51 @@
 This project sets up with yarn install.
 To run the project use: yarn start
 
-The project is built using : 
-react
-material-ui
-axios
-XMLparser
+# NewFoundry - Challenge app
+[]: # Language: markdown
+[]: # Path: README.md
 
-Data is fetched from the following file: alls_well_that_ends_well_ff.xml
+To install: 
+yarn install
+
+To run: 
+yarn start
+
+## Features
+Search function that returns a list of results based on the search term and amount of lines require.
 
 
-Button Values: 
+
+### The project is built using : 
+    - react
+    - material-ui (linear progress bar)
+    - axios
+    - XMLparser
+
+### Data is fetched from the following file: alls_well_that_ends_well_ff.xml
+
+## DATA FLOW CHART PROVIDED: 
+
+    - https://whimsical.com/8LePrcVAybuZn7gdMtQJjw
+
+Search is handled using O(n) time and O(n) space complexity.
+
+## APP considerations: 
+
+    XML data will need to be parsed to JSON - to handle parsing I used XMLparser and then set the data to state using useState.
+
+    lines are displayed as a table of objects. These lines are obtained from the new JSON data using getElementsByTagName("value").
+
+    Character names have multiple values that are searchable. To make the searchable names predictable I used the approach of creating buttons with set values 
+    and would only show values that are available to be searched. This removes the necessity for the user to know the character name or naming convention found within the data 
+    to find the correct character. 
+
+
+
+
+## Notes: 
+
+### Button Values: 
 <div class="character-values-wrapper">
 <button name="character" value="KING.">King of France</button>
 <button name="character" value="DUKE.">Duke of Florence</button>

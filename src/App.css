@@ -1,3 +1,5 @@
+
+
 body {
   overflow-x: hidden;
   display: flex;
@@ -12,29 +14,33 @@ body {
   font-family: "Requiem Fine A", "Requiem Fine B";
   font-style: normal;
   font-weight: 300;
+  width: 100vw;
 }
 
 nav {
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
   align-items: center;
   background-color: #444;
   width: 100vw;
+  min-width: 375;
   height: auto;
 }
 
 nav h1 {
   padding-left: 1rem;
-  padding-right: 1rem;
 }
 
 nav h3 {
   font-size: small;
+  padding-left: 1rem;
 }
 
 /* className styling */
 .App {
   width: 100vw;
+  min-width: 375;
   height: auto;
   display: flex;
   flex-direction: column;
@@ -74,6 +80,7 @@ nav h3 {
 
 .input-fields-wrapper {
   width: 100vw;
+  min-width: 375;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -90,7 +97,7 @@ nav h3 {
   align-items: center;
   justify-content: center;
   border: 2px solid #888;
-  border-radius: 50px;
+
   padding: 1rem;
   background-color: #444;
   width: 30vw;
@@ -126,6 +133,8 @@ nav h3 {
 
 .character-values h2 {
   text-shadow: 0 0 1rem white;
+  font-size: 1.5rem;
+  padding: 1.5rem 0;
 }
 
 .character-values-wrapper {
@@ -143,11 +152,11 @@ nav h3 {
 
  button {
   width: 20vw;
-  min-width: 200px;
-  height: 4rem;
+  min-width: 165px;
+  height: 5rem;
   margin: .25rem;
   border: 2px solid #888;
-  border-radius: 50px;
+  /* border-radius: 50px; */
   padding: 0.5rem;
   background-color: #444;
   color: white;
@@ -158,7 +167,7 @@ nav h3 {
     background-color: #fff;
     color: #444;
     box-shadow: 0 0 1rem white;
-    transition: .5s;
+    transition: .7s;
   }
 
   .output-container {
@@ -167,13 +176,36 @@ nav h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: baseline;
     padding: 0.5rem;
     background-color: #111;
     color: white;
 
   }
 
-  .output-container p {
+  .output-container tr {
     font-size: 1.25rem;
+  }
+
+  td {
+    border: 1px solid #444;
+    text-align: left;
+    padding: .5rem;
+    width: 50vw;
+    min-width: 375;
+    text-align: center;
+  }
+
+  th {
+    font-size: 1.5rem;
+
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+    color: #222;
+  }
+
+  label {
+    font-size: 1.5rem;
   }
