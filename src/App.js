@@ -9,11 +9,21 @@ import "./App.css";
 const initialState = {
   character: "",
   length: 1,
+  searchResults: [],
 };
 
 function App() {
   const [data, setData] = useState();
   const [formValues, setFormValues] = useState(initialState);
+  const [searchData, setSearchData] = useState(initialState.searchResults);
+  const log = console.log;
+
+  // Data checker
+  if (data === undefined) {
+    log(">>>>>>>>>>>>>Loading...");
+  } else {
+    log(">>>>>>>>>>>>>PARSED DATA From state: ", data);
+  }
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,28 +31,28 @@ function App() {
   };
 
   const searchJSON = (formValues, data) => {
-    const foundLines = [];
-    const searchData = data.children
+    const searchData = [];
     const { character, length } = formValues;
-    console.log("1. Form Values from handleSubmit call: ", formValues, "2. SEARCH_DATA", searchData[3].children[0].children[1].children[0].attributes.short.toUpperCase(), "3. CHARACTER", character, "4. LENGTH", length); //200 happy path data :)
-    for (let idx = 5; idx <= 15; idx++) {
-      console.log('Looped search data name ', searchData[idx].children[0].value.toUpperCase());
-      if (searchData[3].children[0].children[1].children[0].attributes.short.toUpperCase() === character) {
-        foundLines.push(searchData[idx].children[0].value);
-        console.log("5. Found character: ", searchData[idx].children[0].value);
-        console.log('found data: ', searchData[3].children[0].children[1].children[0].attributes.short.toUpperCase());
-        return searchData[idx].children[0].value;
-        
-      }  
+    const foundLines = data.getElementsByTagName("line");
+    console.log("4. FOUND LINES", foundLines);
+    for (let idx = 1; idx <= length; idx++) {
+      log("Found Line: ", foundLines[idx].value, "character: ", character);
+      searchData.push(foundLines[idx].value);
     }
+    return searchData;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
     const valueToUpperCase = value.toUpperCase();
-    setFormValues((prevFormValues) => ({ ...prevFormValues, [name]: valueToUpperCase }));
-    searchJSON(formValues, data);
+    setFormValues((prevFormValues) => ({
+      ...prevFormValues,
+      [name]: valueToUpperCase,
+    }));
+    setSearchData(searchJSON(formValues, data));
   };
+
+  log("search data: ", searchData);
 
   useEffect(() => {
     axios
@@ -54,16 +64,9 @@ function App() {
         setData(jsonFromXML);
       })
       .catch((err) => {
-        console.log("ERROR", { err });
+        log("ERROR", { err });
       });
-  }, []);
-
-  // Data checker
-  // if (data === undefined) {
-  //   console.log(">>>>>>>>>>>>>Loading...");
-  // } else {
-  //   console.log(">>>>>>>>>>>>>PARSED DATA From state: ", data);
-  // }
+  }, [log]);
 
   return (
     <div className="App">
@@ -112,7 +115,13 @@ function App() {
         )}
       </div>{" "}
       <div className={"output-container"}>
-        <h2>Output Container</h2>
+        {searchData === undefined ? (
+          <p>Awaiting Query</p>
+        ) : (
+          searchData.map((line, idx) => {
+            return <p key={idx}>Line {idx + 1}: {line}</p>;
+          })
+        )}
       </div>
     </div>
   );

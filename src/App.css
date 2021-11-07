@@ -160,3 +160,20 @@ nav h3 {
     box-shadow: 0 0 1rem white;
     transition: .5s;
   }
+
+  .output-container {
+    width: 100vw;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    background-color: #111;
+    color: white;
+
+  }
+
+  .output-container p {
+    font-size: 1.25rem;
+  }
