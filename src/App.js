@@ -82,9 +82,9 @@ function App() {
         setData(jsonFromXML);
       })
       .catch((err) => {
-        log("ERROR", { err });
+        console.log("ERROR", { err });
       });
-  }, [log]);
+  }, []);
 
   return (
     <div className="App">
