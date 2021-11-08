@@ -40,7 +40,9 @@ Search is handled using O(n) time and O(n) space complexity.
     to be searched. This removes the necessity for the user to know the character name or naming 
     convention found within the data to find the correct character. 
 
+## 30-60-90 Day personal action plan for onboarding process 
 
+https://docs.google.com/document/d/1cBszB4hIfUwJASP-TOS-v9JglbruJr84aFUnld_oX18/edit?usp=sharing
 
 
 ## Notes: 
