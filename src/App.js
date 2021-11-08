@@ -32,18 +32,34 @@ function App() {
 
   const searchJSON = (formValues, data) => {
     const searchData = [];
+    const returnedLines = [];
     const { character, length } = formValues;
     const foundLines = data.getElementsByTagName("line");
+    const foundSpeech = data.getElementsByTagName("speech");
+    console.log(">>>>>>>>>>>>>>>> 4. Found Speech: ", foundSpeech);
+    for (let i = 1; i < foundSpeech.length; i++) {
+      if (foundSpeech[i].children[0].value.toUpperCase() === character) {
+        console.log(">>>>>>>>>>>>>>>> 5. Found The Speaker: ", foundSpeech[i].children[0].value.toUpperCase(), formValues.character);
+        for (let j = 1; j <= foundSpeech[i].children[j].length; j++) {
+          console.log(">>>>>>>>>>>>>>>> 6. FOUND LINES: ", foundSpeech[i].children[j].value);
+          returnedLines.push(foundSpeech[i].children[j].value);
+        }
+      } else {
+        console.log("Speaker not found")
+      }
+    }
+
     for (let idx = 1; idx <= length; idx++) {
       log(
-        "5. Found Line: ",
+        "7. Found Line: ",
         foundLines[idx].value,
-        "6. character: ",
+        "8. character: ",
         character
       );
       searchData.push(foundLines[idx].value);
     }
-    return searchData;
+    console.log(">>>>>>>>>>>>>>>> 9. Search Data: ", searchData, ">>>>>>>>>>>>>>>> 10. Returned Lines: ", returnedLines);
+    return searchData && returnedLines;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -117,14 +133,13 @@ function App() {
         )}
       </div>{" "}
       <div className={"output-container"}>
+        <div>
+          {formValues.character === "" ? null : ( // <h3>Awaiting Query</h3>
+            <h2>Character: {formValues.character}</h2>
+          )}
+        </div>
         <table>
           <tbody>
-            <th>
-              {formValues.character === "" ? // <h3>Awaiting Query</h3>
-              null : (
-                <h3>Character: {formValues.character}</h3>
-              )}
-            </th>
             {searchData === undefined ? (
               <p>Awaiting Query</p>
             ) : (
