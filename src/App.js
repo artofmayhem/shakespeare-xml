@@ -36,19 +36,25 @@ function App() {
     const { character, length } = formValues;
     const foundLines = data.getElementsByTagName("line");
     const foundSpeech = data.getElementsByTagName("speech");
-    console.log(">>>>>>>>>>>>>>>> 4. Found Speech: ", foundSpeech);
-    for (let i = 1; i < foundSpeech.length; i++) {
-      if (foundSpeech[i].children[0].value.toUpperCase() === character) {
-        console.log(">>>>>>>>>>>>>>>> 5. Found The Speaker: ", foundSpeech[i].children[0].value.toUpperCase(), formValues.character);
-        for (let j = 1; j <= foundSpeech[i].children[j].length; j++) {
-          console.log(">>>>>>>>>>>>>>>> 6. FOUND LINES: ", foundSpeech[i].children[j].value);
-          returnedLines.push(foundSpeech[i].children[j].value);
-        }
-      } else {
-        console.log("Speaker not found")
-      }
-    }
-
+    console.log(">>>>>>>>>>>>>>>> 4. Found Speech: ", foundSpeech, "5. Found Lines: ", foundLines);
+    // for (let i = 1; i < foundSpeech.length; i++) {
+    //   if (foundSpeech[i].children[0].value.toUpperCase() === character) {
+    //     console.log(
+    //       ">>>>>>>>>>>>>>>> 5. Found The Speaker: ",
+    //       foundSpeech[i].children[0].value.toUpperCase(),
+    //       formValues.character
+    //     );
+    //     for (let j = 1; j <= foundSpeech[i].children[j].length; j++) {
+    //       console.log(
+    //         ">>>>>>>>>>>>>>>> 6. FOUND LINES: ",
+    //         foundSpeech[i].children[j].value
+    //       );
+    //       returnedLines.push(foundSpeech[i].children[j].value);
+    //     }
+    //   } else {
+    //     console.log("Speaker not found");
+    //   }
+    // }
     for (let idx = 1; idx <= length; idx++) {
       log(
         "7. Found Line: ",
@@ -56,10 +62,17 @@ function App() {
         "8. character: ",
         character
       );
+      
       searchData.push(foundLines[idx].value);
     }
-    console.log(">>>>>>>>>>>>>>>> 9. Search Data: ", searchData, ">>>>>>>>>>>>>>>> 10. Returned Lines: ", returnedLines);
-    return searchData && returnedLines;
+    console.log(
+      ">>>>>>>>>>>>>>>> 9. Search Data: ",
+      searchData,
+      ">>>>>>>>>>>>>>>> 10. Returned Lines: ",
+      returnedLines
+    );
+    // return searchData && returnedLines;
+    return searchData;
   };
   const handleSubmit = (e) => {
     e.preventDefault();
